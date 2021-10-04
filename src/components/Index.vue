@@ -2,7 +2,18 @@
     <v-app>
         <v-main class="main">
             <Header v-on:headerToIndex="onUploadBtnClick"/>
-            <ExpansionPanel v-on:cancelUploading="onCancelUploadClick" v-on:cancelAll="onCancelAllClick" v-on:cancelCompleted="onCancelCompletedClick" :nextUpFiles="nextUpFiles" :uploadingFiles="uploadingFiles" :completedFiles="completedFiles" :inCompletedFiles="inCompletedFiles" :loadingProgress="loadingProgress"/>
+            <ExpansionPanel 
+                v-on:cancelUploading="onCancelUploadClick" 
+                v-on:cancelAll="onCancelAllClick" 
+                v-on:cancelCompleted="onCancelCompletedClick" 
+                v-on:dismissIncomplete="onDismissIncompleteClick" 
+                v-on:retryIncomplete="onRetryIncompleteClick" 
+                :nextUpFiles="nextUpFiles" 
+                :uploadingFiles="uploadingFiles" 
+                :completedFiles="completedFiles" 
+                :inCompletedFiles="inCompletedFiles" 
+                :loadingProgress="loadingProgress"
+            />
         </v-main>
     </v-app>
 </template>
@@ -97,7 +108,7 @@ export default {
             this.initPrecess();
         },
 
-        onCancelUploadClick() {
+        onCancelUploadClick () {
             this.loadingProgress = 0;
             clearTimeout(this.interval);
             // this.uploadingFiles.pop();
@@ -113,13 +124,25 @@ export default {
             this.nextUpFiles = [];
         },
 
-        onCancelAllClick() {
+        onCancelAllClick () {
             this.nextUpFiles = [];
         },
 
-        onCancelCompletedClick() {
+        onCancelCompletedClick () {
             this.completedFiles = [];
         },
+
+        onDismissIncompleteClick () {
+            this.inCompletedFiles = [];
+        },
+
+        onRetryIncompleteClick () {
+            
+            this.nextUpFiles = this.nextUpFiles.concat(this.inCompletedFiles)
+            this.inCompletedFiles = [];
+        },
+
+
     }
 
     

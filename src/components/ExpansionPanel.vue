@@ -311,10 +311,6 @@ export default {
             this.$emit('cancelCompleted', "dismiss upload completed files");
         },
 
-        cancelInComplete () {
-
-        },
-
         dismissIncomplete () {
             this.$emit('dismissIncomplete', "dismiss incomplete files");
         },
