@@ -19,7 +19,7 @@
             <div>
                 <v-file-input
                 v-model="files"
-                @change="previewFiles"
+                @change="uploadFiles"
                 hide-input
                 multiple
                 truncate-length="6"
@@ -144,7 +144,7 @@ export default {
         remove (index) {
             this.files.splice(index, 1)
         },
-        previewFiles(event) { 
+        uploadFiles(event) { 
             console.log(this.files); 
             this.$emit('headerToIndex', this.files);
         }
