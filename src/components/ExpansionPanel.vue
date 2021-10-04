@@ -295,6 +295,7 @@ export default {
     data: () => ({
         alert: true,
     }),
+    
     methods: {
         cancelUpload (event) {
             console.log(event);
@@ -306,12 +307,12 @@ export default {
             this.$emit('cancelAll', "all canceled");
         },
 
-        cancelInComplete () {
-
-        },
-
         cancelComplete () {
             this.$emit('cancelCompleted', "dismiss upload completed files");
+        },
+
+        cancelInComplete () {
+
         },
 
         dismissIncomplete () {
