@@ -161,7 +161,7 @@
                     <template v-if="inCompletedFiles.length > 0">
                         <div class="incomplete-reset">
                             <div style="font-size:8px;" class="retry-incomplete">
-                                <a href="#"  v-on:click="cancelComplete">RETRY All</a>
+                                <a href="#"  v-on:click="retryIncomplete">RETRY All</a>
                             </div>
                             <div style="font-size:8px;" class="dismiss-incomplete">
                                 <a href="#"  v-on:click="dismissIncomplete">DISMISS All</a>

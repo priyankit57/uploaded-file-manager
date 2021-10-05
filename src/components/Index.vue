@@ -110,18 +110,21 @@ export default {
 
         onCancelUploadClick () {
             this.loadingProgress = 0;
-            clearTimeout(this.interval);
-            // this.uploadingFiles.pop();
-            // if (this.nextUpFiles.length == 0)
-            // {
-            //     return;
-            // }
-            
-            // this.uploadingFiles.push(this.nextUpFiles.shift());
-            // this.initPrecess();
 
-            this.uploadingFiles = [];
-            this.nextUpFiles = [];
+            this.uploadingFiles.pop();
+            
+            if (this.nextUpFiles.length == 0)
+            {
+                alert("end");
+                clearTimeout(this.interval);
+                return;
+            }
+            
+            this.uploadingFiles.push(this.nextUpFiles.shift());
+          
+            clearTimeout(this.interval);
+            this.initPrecess();
+        
         },
 
         onCancelAllClick () {
@@ -137,9 +140,16 @@ export default {
         },
 
         onRetryIncompleteClick () {
-            
+           
             this.nextUpFiles = this.nextUpFiles.concat(this.inCompletedFiles)
             this.inCompletedFiles = [];
+            
+            if (this.uploadingFiles.length == 0)
+            {
+                this.uploadingFiles.push(this.nextUpFiles.shift());
+                this.initPrecess();
+            }
+           
         },
 
 
