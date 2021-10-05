@@ -101,7 +101,7 @@ export default {
             
             if (this.nextUpFiles.length == 0)
             {
-                alert("uploading is end");
+                console.log("uploading is ended.");
                 clearTimeout(this.interval);
                 return;
             }
@@ -117,7 +117,7 @@ export default {
             
             if (this.nextUpFiles.length == 0)
             {
-                alert("uploading is end");
+                console.log("uploading is ended.")
                 clearTimeout(this.interval);
                 return;
             }
