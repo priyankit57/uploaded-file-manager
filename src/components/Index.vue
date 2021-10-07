@@ -45,29 +45,34 @@ export default {
         inCompletedFiles: [],
         completedFiles: [],
         loadingProgress: 0,
+        temporaryFiles: [
+            { type: "fa fa-image green--text", name: "Brithday 2020.png", size: "2.0 MB"},
+            { type: "fa fa-file-zip-o yellow--text", name: "Students 2020.zip", size: "2.0 MB"},
+            { type: "fa fa-file-pdf-o red--text", name: "License.pdf", size: "2.0 MB"},
+            { type: "fa fa-file-excel-o green--text", name: "PayRoll.xlas", size: "2.0 MB"}
+        ],
         interval: 0,
     }),
 
     methods: {
         // Triggered when `headerToIndex` event is emitted by the child.
         onUploadBtnClick () {
-            this.uploadingFiles = [
-                { type: "fa fa-file-zip-o yellow--text", name: "PhotoID.zip", size: "2.0 MB"},
-            ];
-
-            this.nextUpFiles = [
-                { type: "fa fa-image green--text", name: "Brithday 2020.png", size: "2.0 MB"},
-                { type: "fa fa-file-zip-o yellow--text", name: "Students 2020.zip", size: "2.0 MB"},
-                { type: "fa fa-file-pdf-o red--text", name: "License.pdf", size: "2.0 MB"},
-                { type: "fa fa-file-excel-o green--text", name: "PayRoll.xlas", size: "2.0 MB"}
-            ];
-
-            this.initPrecess();
+            var flag = Math.floor(Math.random() * 4);
+           
+            if (this.uploadingFiles.length > 0)
+            {
+                this.nextUpFiles.push(this.temporaryFiles[flag - 1]);
+            } else {
+                this.uploadingFiles.push(this.temporaryFiles[flag - 1]);
+                this.initPrecess();
+            }
+            
+            
         },
 
         initPrecess() {
             this.interval = setInterval(() => {
-                console.log(this.loadingProgress);
+
                 if (this.loadingProgress == 75) {
                     var flag = Math.floor(Math.random() * 2);
                     
@@ -98,7 +103,7 @@ export default {
             }
 
             this.uploadingFiles.pop();
-            
+            console.log(this.uploadingFiles.length);   
             if (this.nextUpFiles.length == 0)
             {
                 console.log("uploading is ended.");

@@ -145,7 +145,8 @@ export default {
             this.files.splice(index, 1)
         },
         uploadFiles(event) { 
-            console.log(this.files); 
+            // console.log(this.files); 
+            console.log("clicked");
             this.$emit('headerToIndex', this.files);
         }
     },
