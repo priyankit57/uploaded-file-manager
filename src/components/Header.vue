@@ -21,7 +21,7 @@
                 v-model="files"
                 @change="uploadFiles"
                 hide-input
-                multiple
+                
                 truncate-length="6"
                 prepend-icon="mdi-plus blue--text"
                 loading="true"
