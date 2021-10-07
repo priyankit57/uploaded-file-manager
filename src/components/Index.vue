@@ -61,9 +61,9 @@ export default {
            
             if (this.uploadingFiles.length > 0)
             {
-                this.nextUpFiles.push(this.temporaryFiles[flag - 1]);
+                this.nextUpFiles.push(this.temporaryFiles[flag]);
             } else {
-                this.uploadingFiles.push(this.temporaryFiles[flag - 1]);
+                this.uploadingFiles.push(this.temporaryFiles[flag]);
                 this.initPrecess();
             }
             
@@ -103,7 +103,7 @@ export default {
             }
 
             this.uploadingFiles.pop();
-            console.log(this.uploadingFiles.length);   
+            
             if (this.nextUpFiles.length == 0)
             {
                 console.log("uploading is ended.");
