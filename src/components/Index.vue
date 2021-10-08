@@ -117,9 +117,9 @@ export default {
 
         onCancelUploadClick () {
             this.loadingProgress = 0;
-
-            this.uploadingFiles.pop();
             
+            this.inCompletedFiles.push(this.uploadingFiles.pop());
+                        
             if (this.nextUpFiles.length == 0)
             {
                 console.log("uploading is ended.")
