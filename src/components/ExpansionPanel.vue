@@ -16,7 +16,7 @@
                     </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                 
+                   
                     <v-alert v-for="(file,i) in uploadingFiles" :key="i"
                         color="#F6F7FC"
                         height="79"
@@ -70,6 +70,8 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
+                        
+                        @input="closeAlert('next_up', i)"                       
                     >
                         <div class="alert-box">
                             <div>
@@ -124,6 +126,7 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
+                        @input="closeAlert('completed', i)"
                     >
                         <div class="alert-box">
                             <div>
@@ -174,6 +177,7 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
+                        @input="closeAlert('incomplete', i)"
                     >
                         <div class="alert-box">
                             <div>
@@ -298,6 +302,7 @@ export default {
     
     methods: {
         cancelUpload (event) {
+          
             console.log(event);
             this.$emit('cancelUploading', "upload canceled");
         },
@@ -319,8 +324,9 @@ export default {
             this.$emit('retryIncomplete', "retry incomplete files");
         },
 
-        onclose() {
-            console.log(this);
+        closeAlert(status, i) {
+            
+            this.$emit('dismissAlert', {status: status, index: i});
         }
     },
     

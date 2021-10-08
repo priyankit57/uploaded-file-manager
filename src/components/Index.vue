@@ -3,7 +3,8 @@
         <v-main class="main">
             <Header v-on:headerToIndex="onUploadBtnClick"/>
             <ExpansionPanel 
-                v-on:cancelUploading="onCancelUploadClick" 
+                v-on:cancelUploading="onCancelUploadClick"
+                v-on:dismissAlert="onDismissAlertClick" 
                 v-on:cancelAll="onCancelAllClick" 
                 v-on:cancelCompleted="onCancelCompletedClick" 
                 v-on:dismissIncomplete="onDismissIncompleteClick" 
@@ -34,7 +35,7 @@ export default {
 
     components: {
         Header,
-        ExpansionPanel
+        ExpansionPanel,
     },
 
     
@@ -158,6 +159,29 @@ export default {
             }
            
         },
+        onDismissAlertClick (val) {
+            console.log(val);
+
+            if (val.status == "next_up")
+            {
+                this.nextUpFiles.splice(val.index, 1);
+                this.nextUpFiles = this.nextUpFiles.slice();
+                
+            }
+
+            if (val.status == "completed")
+            {
+                this.completedFiles.splice(val.index, 1);
+                
+                this.completedFiles = this.completedFiles.slice();
+            }
+
+            if (val.status == "incomplete")
+            {
+                this.inCompletedFiles.splice(val.index, 1);
+                this.inCompletedFiles =  this.inCompletedFiles.slice();
+            }
+        }
 
 
     }
