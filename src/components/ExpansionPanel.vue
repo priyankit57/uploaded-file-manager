@@ -18,7 +18,7 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                     <template v-for="(file,i) in uploadingFiles">
-                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="false" :loadingState="'uploading'" v-on:closeAlert="closeAlert"/>
+                        <Alert :file="file" :key="i" :dismissible="false" :loadingState="'uploading'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
                     </template>                      
                 </v-expansion-panel-content>
             </v-expansion-panel>
@@ -39,7 +39,7 @@
                 <v-expansion-panel-content>
                       
                     <template v-for="(file,i) in nextUpFiles">
-                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'nextUp'" v-on:closeAlert="closeAlert"/>
+                        <Alert :file="file" :key="i" :dismissible="true" :loadingState="'nextUp'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
                     </template>
                     
                 </v-expansion-panel-content>
@@ -66,7 +66,7 @@
                     </template>  
                       
                     <template v-for="(file,i) in completedFiles">
-                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'completed'" v-on:closeAlert="closeAlert"/>
+                        <Alert :file="file" :key="i" :dismissible="true" :loadingState="'completed'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
                     </template>
                     
                 </v-expansion-panel-content>
@@ -92,7 +92,7 @@
                         </div>
                     </template>  
                     <template v-for="(file,i) in incompleteFiles">
-                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'incomplete'" v-on:closeAlert="closeAlert"/>
+                        <Alert :file="file" :key="i" :dismissible="true" :loadingState="'incomplete'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
                     </template>
                 </v-expansion-panel-content>
             </v-expansion-panel>

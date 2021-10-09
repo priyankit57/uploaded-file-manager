@@ -1,100 +1,100 @@
 <template>
-<div>
-    <v-alert 
-        color="#F6F7FC"
-        height="79"
-        :icon="file.type"
-    >
-        <div class="alert-box">
-            <div>
-                <div class="file-name">{{file.name}}</div>
-                <div class="file-size">{{file.size}}</div>
-            </div>
-            <template v-if="loadingState === 'uploading'">
-                <div class="loading-state">
-                    <div class="loading-mark">
-                        <v-progress-circular
-                        :rotate="360"
-                        :size="24"
-                        :width="3"
-                        :value="loadingProgress"
-                        color="teal"
-                        >
-                        </v-progress-circular>
-                    </div>
-                    <div style="font-size:8px;">
-                        Encrypting..
-                    </div>
+    <div>
+        <v-alert 
+            color="#F6F7FC"
+            height="79"
+            :icon="file.type"
+        >
+            <div class="alert-box">
+                <div>
+                    <div class="file-name">{{file.name}}</div>
+                    <div class="file-size">{{file.size}}</div>
                 </div>
-            </template>
-            <template v-if="loadingState === 'nextUp'">
-                <div class="loading-state">
-                    <div class="loading-mark">
-                        <v-progress-circular
-                        :rotate="360"
-                        :size="24"
-                        :width="3"
-                        :value="0"
-                        color="teal"
-                        >
-                        </v-progress-circular>
-                    </div>
-                    <div style="font-size:8px;">
-                        Waiting..
-                    </div>
-                </div>
-            </template>
-            <template v-if="loadingState === 'completed'">
-                <div class="loading-state">
-                    <div class="loading-mark">
-                        <v-icon
-                            color="green"
-                        >
-                            mdi-checkbox-marked-circle
-                        </v-icon>
-                    </div>
-                    <div style="font-size:8px;">
-                        Done
-                    </div>
-                </div>
-            </template>
-            <template v-if="loadingState === 'incomplete'">
-                 <div class="loading-state">
-                    <div class="loading-mark">
-                        <v-icon
-                            color="red"
-                            style="font-size:20px;"
+                <template v-if="loadingState === 'uploading'">
+                    <div class="loading-state">
+                        <div class="loading-mark">
+                            <v-progress-circular
+                            :rotate="360"
+                            :size="24"
+                            :width="3"
+                            :value="loadingProgress"
+                            color="teal"
                             >
-                            fas fa-redo-alt
-                        </v-icon>
+                            </v-progress-circular>
+                        </div>
+                        <div style="font-size:8px;">
+                            Encrypting..
+                        </div>
                     </div>
-                    <div style="font-size:8px;">
-                        Canceled
+                </template>
+                <template v-if="loadingState === 'nextUp'">
+                    <div class="loading-state">
+                        <div class="loading-mark">
+                            <v-progress-circular
+                            :rotate="360"
+                            :size="24"
+                            :width="3"
+                            :value="0"
+                            color="teal"
+                            >
+                            </v-progress-circular>
+                        </div>
+                        <div style="font-size:8px;">
+                            Waiting..
+                        </div>
                     </div>
-                </div>
+                </template>
+                <template v-if="loadingState === 'completed'">
+                    <div class="loading-state">
+                        <div class="loading-mark">
+                            <v-icon
+                                color="green"
+                            >
+                                mdi-checkbox-marked-circle
+                            </v-icon>
+                        </div>
+                        <div style="font-size:8px;">
+                            Done
+                        </div>
+                    </div>
+                </template>
+                <template v-if="loadingState === 'incomplete'">
+                    <div class="loading-state">
+                        <div class="loading-mark">
+                            <v-icon
+                                color="red"
+                                style="font-size:20px;"
+                                >
+                                fas fa-redo-alt
+                            </v-icon>
+                        </div>
+                        <div style="font-size:8px;">
+                            Canceled
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <template v-slot:close="{ toggle }" v-if="dismissible" >
+                <v-icon
+                    @click="myFunction(toggle)"
+                    class="alert-close"  
+                >
+                mdi-close
+                </v-icon>
             </template>
-        </div>
-        <template v-slot:close="{ toggle }" v-if="dismissible" >
-            <v-icon
-                @click="myFunction(toggle)"
-                class="alert-close"  
-            >
-            mdi-close
-            </v-icon>
-        </template>
 
-    </v-alert>
-    <!-- <div class="text-center">
-      <v-btn
-        v-if="!visibility"
-        color="deep-purple accent-4"
-        dark
-        @click="visibility = true"
-      >
-        Reset
-      </v-btn>
-    </div> -->
-</div>
+        </v-alert>
+        <!-- <div class="text-center">
+        <v-btn
+            v-if="!visibility"
+            color="deep-purple accent-4"
+            dark
+            @click="visibility = true"
+        >
+            Reset
+        </v-btn>
+        </div> -->
+    </div>
 </template>
 <style scoped>
 
