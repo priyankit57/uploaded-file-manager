@@ -4,7 +4,6 @@
         color="#F6F7FC"
         height="79"
         :icon="file.type"
-        close-icon="mdi-close"
     >
         <div class="alert-box">
             <div>
@@ -75,9 +74,10 @@
                 </div>
             </template>
         </div>
-        <template v-slot:close="{ toggle }" v-if="dismissible">
+        <template v-slot:close="{ toggle }" v-if="dismissible" >
             <v-icon
-                @click="myFunction(toggle)" 
+                @click="myFunction(toggle)"
+                class="alert-close"  
             >
             mdi-close
             </v-icon>
@@ -132,12 +132,22 @@
     display:flex; 
     flex-direction:column;
     justify-content: center;
+    margin-top: 2px;
 }
 
 .loading-mark {
     display: flex;
     justify-content: center;
 }
+
+.alert-close {
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    margin-top: -24px;
+    margin-right: -10px;
+}
+
 
 
 
