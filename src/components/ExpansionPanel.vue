@@ -2,7 +2,7 @@
     <div class="expansion-panel">
         <v-expansion-panels multiple>
            
-            <v-expansion-panel>
+            <v-expansion-panel :value="0">
                 <v-expansion-panel-header>
                     <div class="cancel-upload">
                         <div>
@@ -17,6 +17,11 @@
                     </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
+                    <template v-if="uploadingFiles.length < 1">
+                        <div class="sm-text-8">
+                            No Uploading file.
+                        </div>
+                    </template> 
                     <template v-for="(file,i) in uploadingFiles">
                         <Alert :file="file" :key="i" :dismissible="false" :loadingState="'uploading'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
                     </template>                      
@@ -37,6 +42,11 @@
                     </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
+                    <template v-if="nextUpFiles.length < 1">
+                        <div class="sm-text-8">
+                            No pending uploads.
+                        </div>
+                    </template> 
                       
                     <template v-for="(file,i) in nextUpFiles">
                         <Alert :file="file" :key="i" :dismissible="true" :loadingState="'nextUp'" :index="i" :loadingProgress="loadingProgress" v-on:closeAlert="closeAlert"/>
@@ -164,21 +174,23 @@ export default {
     
     methods: {
         cancelUpload (event) {
-            console.log(this.visibility);
-            console.log(event);
+            event.cancelBubble = true;
             this.$emit('cancelUploading', "upload canceled");
         },
 
         cancelAll (event) {
             console.log(event);
+            event.cancelBubble = true;
             this.$emit('cancelAll', "all canceled");
         },
 
-        cancelComplete () {
+        cancelComplete (event) {
+            event.cancelBubble = true;
             this.$emit('cancelCompleted', "dismiss upload completed files");
         },
 
-        dismissIncomplete () {
+        dismissIncomplete (event) {
+            event.cancelBubble = true;
             this.$emit('dismissIncomplete', "dismiss incomplete files");
         },
 

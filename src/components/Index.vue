@@ -48,7 +48,11 @@ export default {
             { type: "fa fa-image green--text", name: "Brithday 2020.png", size: "2.0 MB"},
             { type: "fa fa-file-zip-o yellow--text", name: "Students 2020.zip", size: "2.0 MB"},
             { type: "fa fa-file-pdf-o red--text", name: "License.pdf", size: "2.0 MB"},
-            { type: "fa fa-file-excel-o green--text", name: "PayRoll.xlas", size: "2.0 MB"}
+            { type: "fa fa-file-excel-o green--text", name: "PayRoll.xlas", size: "2.0 MB"},
+            { type: "fa fa-image green--text", name: "Portfolio.png", size: "2.0 MB"},
+            { type: "fa fa-file-zip-o yellow--text", name: "IP addresses 2020.zip", size: "2.0 MB"},
+            { type: "fa fa-file-pdf-o red--text", name: "Phone Number.pdf", size: "2.0 MB"},
+            { type: "fa fa-file-excel-o green--text", name: "Excel.xlas", size: "2.0 MB"}
         ],
         interval: 0,
     }),
@@ -56,7 +60,7 @@ export default {
     methods: {
         // Triggered when `headerToIndex` event is emitted by the child.
         onUploadBtnClick () {
-            var flag = Math.floor(Math.random() * 4);
+            var flag = Math.floor(Math.random() * 8);
            
             if (this.uploadingFiles.length > 0)
             {
@@ -92,9 +96,9 @@ export default {
 
             if (completed)
             {
-                this.completedFiles.push(this.uploadingFiles[0]);
+                this.completedFiles.unshift(this.uploadingFiles[0]);
             } else {
-                this.incompleteFiles.push(this.uploadingFiles[0]);
+                this.incompleteFiles.unshift(this.uploadingFiles[0]);
             }
 
             this.uploadingFiles.pop();
@@ -113,7 +117,7 @@ export default {
         onCancelUploadClick () {
             this.loadingProgress = 0;
             
-            this.incompleteFiles.push(this.uploadingFiles.pop());
+            this.incompleteFiles.unshift(this.uploadingFiles.pop());
                         
             if (this.nextUpFiles.length == 0)
             {
@@ -130,8 +134,8 @@ export default {
         },
 
         onCancelAllClick () {
-
-            this.incompleteFiles = this.incompleteFiles.concat(this.nextUpFiles);
+            console.log("cancel all");
+            this.incompleteFiles = this.nextUpFiles.concat(this.incompleteFiles).slice();
             this.nextUpFiles = [];
         },
 
@@ -159,6 +163,8 @@ export default {
            
             if (val.status == "nextUp")
             {
+                this.incompleteFiles.unshift(this.nextUpFiles[val.index]);
+                
                 this.nextUpFiles.splice(val.index, 1);
             }
 
