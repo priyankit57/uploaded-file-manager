@@ -96,13 +96,12 @@
         </div> -->
     </div>
 </template>
-<style scoped>
 
+<style scoped>
 .alert-box {
     display: flex;
     justify-content: space-between;
 }
-
 
 .file-name {
     margin-top: 5px;
@@ -147,11 +146,8 @@
     margin-top: -24px;
     margin-right: -10px;
 }
-
-
-
-
 </style>
+
 <script>
     export default {
         props: {

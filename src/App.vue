@@ -26,8 +26,6 @@
   flex: 1 1 auto !important;
   margin-top: 7px !important;
 }
-
-
 </style>
 
 <script>

@@ -24,7 +24,6 @@
 .main {
     width: 375px;
 }
-
 </style>
 
 <script>
@@ -66,8 +65,6 @@ export default {
                 this.uploadingFiles.push(this.temporaryFiles[flag]);
                 this.initPrecess();
             }
-            
-            
         },
 
         initPrecess() {
@@ -76,12 +73,10 @@ export default {
                 if (this.loadingProgress == 75) {
                     var flag = Math.floor(Math.random() * 2);
                     
-                    
                     if (flag == 0) {
                         clearTimeout(this.interval)
                         this.manageUploadedFile(false);
                     }
-                // return;
                 }
 
                 if (this.loadingProgress >= 100) {

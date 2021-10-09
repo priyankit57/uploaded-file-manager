@@ -39,9 +39,8 @@ export default {
     
 }
 </script>
+
 <style scoped>
-
-
 .header-rect {
     width: 375px;
     height: 95px;
@@ -130,7 +129,6 @@ export default {
     /* width: 93px;
     height: 21px; */
 }
-
 </style>
 
 <script>

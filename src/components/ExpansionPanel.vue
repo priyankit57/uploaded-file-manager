@@ -99,6 +99,7 @@
         </v-expansion-panels>
     </div>
 </template>
+
 <style scoped>
 .expansion-panel {
     margin: auto;
