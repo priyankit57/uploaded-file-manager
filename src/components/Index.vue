@@ -12,7 +12,7 @@
                 :nextUpFiles="nextUpFiles" 
                 :uploadingFiles="uploadingFiles" 
                 :completedFiles="completedFiles" 
-                :inCompletedFiles="inCompletedFiles" 
+                :incompleteFiles="incompleteFiles" 
                 :loadingProgress="loadingProgress"
                 :temporaryFiles="temporaryFiles"
             />
@@ -44,7 +44,7 @@ export default {
     data: () => ({
         uploadingFiles: [],
         nextUpFiles: [],
-        inCompletedFiles: [],
+        incompleteFiles: [],
         completedFiles: [],
         loadingProgress: 0,
         temporaryFiles: [
@@ -101,7 +101,7 @@ export default {
             {
                 this.completedFiles.push(this.uploadingFiles[0]);
             } else {
-                this.inCompletedFiles.push(this.uploadingFiles[0]);
+                this.incompleteFiles.push(this.uploadingFiles[0]);
             }
 
             this.uploadingFiles.pop();
@@ -120,7 +120,7 @@ export default {
         onCancelUploadClick () {
             this.loadingProgress = 0;
             
-            this.inCompletedFiles.push(this.uploadingFiles.pop());
+            this.incompleteFiles.push(this.uploadingFiles.pop());
                         
             if (this.nextUpFiles.length == 0)
             {
@@ -137,6 +137,8 @@ export default {
         },
 
         onCancelAllClick () {
+            
+            this.incompleteFiles = this.incompleteFiles.concat(this.nextUpFiles);
             this.nextUpFiles = [];
         },
 
@@ -145,13 +147,13 @@ export default {
         },
 
         onDismissIncompleteClick () {
-            this.inCompletedFiles = [];
+            this.incompleteFiles = [];
         },
 
         onRetryIncompleteClick () {
            
-            this.nextUpFiles = this.nextUpFiles.concat(this.inCompletedFiles)
-            this.inCompletedFiles = [];
+            this.nextUpFiles = this.nextUpFiles.concat(this.incompleteFiles)
+            this.incompleteFiles = [];
             
             if (this.uploadingFiles.length == 0)
             {
@@ -161,36 +163,22 @@ export default {
            
         },
         onDismissAlertClick (val) {
-            console.log(val.index);
-            alert("click");
-            // if (val.status == "next_up")
-            // {
-            //     console.log(this.nextUpFiles.length);
-            //     this.nextUpFiles.splice(val.index, 1);
-            //     console.log(this.nextUpFiles.length);
-                               
-            // }
+           
+            if (val.status == "nextUp")
+            {
+                this.nextUpFiles.splice(val.index, 1);
+            }
 
-            // if (val.status == "completed")
-            // {
-            //     console.log(this.completedFiles.length);
-            //     this.completedFiles.splice(val.index, 1);
-            //     console.log(this.completedFiles.length);
-               
-            // }
+            if (val.status == "completed")
+            {
+                this.completedFiles.splice(val.index, 1);
+            }
 
-            // if (val.status == "incomplete")
-            // {
-            //     console.log(this.inCompletedFiles.length);
-            //     this.inCompletedFiles.splice(val.index, 1);
-            //     console.log(this.inCompletedFiles.length);
-               
-            // }
+            if (val.status == "incomplete")
+            {
+                this.incompleteFiles.splice(val.index, 1);
+            }
         },
-
-
     }
-
-    
 };
 </script>

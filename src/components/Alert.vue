@@ -11,7 +11,7 @@
                 <div class="file-name">{{file.name}}</div>
                 <div class="file-size">{{file.size}}</div>
             </div>
-            <template v-if="loadingState === 'progress'">
+            <template v-if="loadingState === 'uploading'">
                 <div class="loading-state">
                     <div class="loading-mark">
                         <v-progress-circular
@@ -174,7 +174,7 @@
             //    toggle();
             console.log(toggle);
 
-            this.$emit('closeAlert', {status: 'temp', index: this.index});
+            this.$emit('closeAlert', {status: this.loadingState, index: this.index});
             },
         }
     }

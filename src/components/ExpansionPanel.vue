@@ -1,22 +1,7 @@
 <template>
     <div class="expansion-panel">
         <v-expansion-panels multiple>
-            <!-- <v-expansion-panel>
-                <v-expansion-panel-header>
-                    <div class="cancel-upload">
-                        <div>
-                            Temp
-                        </div>
-                        
-                        
-                    </div>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content>
-                    <template v-for="(file, i) in temporaryFiles">
-                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'incomplete'" v-on:closeAlert="closeAlert"/>
-                    </template>
-                </v-expansion-panel-content>
-            </v-expansion-panel> -->
+           
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <div class="cancel-upload">
@@ -32,37 +17,9 @@
                     </div>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                   
-                    <v-alert v-for="(file,i) in uploadingFiles" :key="i"
-                        color="#F6F7FC"
-                        height="79"
-                        :icon="file.type"
-                        
-                    >
-                        <div class="alert-box">
-                            <div>
-                                <div class="file-name">{{file.name}}</div>
-                                <div class="file-size">{{file.size}}</div>
-                            </div>
-                            <div class="loading-state">
-                                <div class="loading-mark">
-                                    <v-progress-circular
-                                    :rotate="360"
-                                    :size="24"
-                                    :width="3"
-                                    :value="loadingProgress"
-                                    color="teal"
-                                    >
-                                    </v-progress-circular>
-                                </div>
-                                <div style="font-size:8px;">
-                                    Encrypting..
-                                </div>
-                            </div>
-                        </div>
-
-                    </v-alert>
-                    
+                    <template v-for="(file,i) in uploadingFiles">
+                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="false" :loadingState="'uploading'" v-on:closeAlert="closeAlert"/>
+                    </template>                      
                 </v-expansion-panel-content>
             </v-expansion-panel>
             <v-expansion-panel>
@@ -81,38 +38,9 @@
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                       
-                    <v-alert v-for="(file,i) in nextUpFiles" :key="i"
-                        dismissible
-                        color="#F6F7FC"
-                        height="79"
-                        :icon="file.type"
-                        close-icon="mdi-close"
-                        v-model="visibility"
-                        @input="closeAlert('next_up', i)"                       
-                    >
-                        <div class="alert-box">
-                            <div>
-                                <div class="file-name">{{file.name}}</div>
-                                <div class="file-size">{{file.size}}</div>
-                            </div>
-                            <div class="loading-state">
-                                <div class="loading-mark">
-                                    <v-progress-circular
-                                    :rotate="360"
-                                    :size="24"
-                                    :width="3"
-                                    :value="0"
-                                    color="teal"
-                                    >
-                                    </v-progress-circular>
-                                </div>
-                                <div style="font-size:8px;">
-                                    Waiting..
-                                </div>
-                            </div>
-                        </div>
-
-                    </v-alert>
+                    <template v-for="(file,i) in nextUpFiles">
+                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'nextUp'" v-on:closeAlert="closeAlert"/>
+                    </template>
                     
                 </v-expansion-panel-content>
             </v-expansion-panel>
@@ -137,36 +65,9 @@
                         </div>
                     </template>  
                       
-                    <v-alert v-for="(file,i) in completedFiles" :key="i"
-                        dismissible
-                        color="#F6F7FC"
-                        height="79"
-                        :icon="file.type"
-                        close-icon="mdi-close"
-                        v-model="visibility"
-                        @input="closeAlert('completed', i)"
-                    >
-                        <div class="alert-box">
-                            <div>
-                                <div class="file-name">{{file.name}}</div>
-                                <div class="file-size">{{file.size}}</div>
-                            </div>
-                            
-                            <div class="loading-state">
-                                <div class="loading-mark">
-                                    <v-icon
-                                        color="green"
-                                    >
-                                        mdi-checkbox-marked-circle
-                                    </v-icon>
-                                </div>
-                                <div style="font-size:8px;">
-                                    Done
-                                </div>
-                            </div>
-                        </div>
-
-                    </v-alert>
+                    <template v-for="(file,i) in completedFiles">
+                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'completed'" v-on:closeAlert="closeAlert"/>
+                    </template>
                     
                 </v-expansion-panel-content>
             </v-expansion-panel>
@@ -175,12 +76,12 @@
                     Incomplete Uploads
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                    <template v-if="inCompletedFiles.length < 1">
+                    <template v-if="incompleteFiles.length < 1">
                         <div class="sm-text-8">
                             No incomplete uploads yet.
                         </div>
                     </template>
-                    <template v-if="inCompletedFiles.length > 0">
+                    <template v-if="incompleteFiles.length > 0">
                         <div class="incomplete-reset">
                             <div style="font-size:8px;" class="retry-incomplete">
                                 <a href="#"  v-on:click="retryIncomplete">RETRY All</a>
@@ -190,39 +91,9 @@
                             </div>
                         </div>
                     </template>  
-                    <v-alert v-for="(file,i) in inCompletedFiles" :key="i"
-                        dismissible
-                        color="#F6F7FC"
-                        height="79"
-                        :icon="file.type"
-                        close-icon="mdi-close"
-                        v-model="visibility"
-                        @input="closeAlert('incomplete', i)"
-                    >
-                        <div class="alert-box">
-                            <div>
-                                <div class="file-name">{{file.name}}</div>
-                                <div class="file-size">{{file.size}}</div>
-                            </div>
-                            <div class="loading-state">
-                                <div class="loading-mark">
-                                    <v-icon
-                                        color="red"
-                                        style="font-size:20px;"
-                                        >
-                                        fas fa-redo-alt
-                                    </v-icon>
-                                </div>
-                                <div style="font-size:8px;">
-                                    Canceled
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-
-                    </v-alert>
-                    
+                    <template v-for="(file,i) in incompleteFiles">
+                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'incomplete'" v-on:closeAlert="closeAlert"/>
+                    </template>
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
@@ -236,51 +107,9 @@
     width: 305px;
 }
 
-.alert-box {
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.file-name {
-    margin-top: 5px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 5px;
-}
-
-.file-size {
-    margin-top: 15px;
-    font-weight: normal;
-    font-size: 8px;
-    line-height: 5px;
-}
-
 .cancel-upload {
-    display:flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.sm-text-8 {
-    width: 122px;
-    /* font-family: Poppins; */
-    font-style: normal;
-    font-weight: normal;
-    font-size: 8px;
-    line-height: 10px;
-    color: #9E9E9E;
-}
-
-.loading-state {
-    display:flex; 
-    flex-direction:column;
-    justify-content: center;
-}
-
-.loading-mark {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .incomplete-reset {
@@ -296,8 +125,17 @@
     margin-left: 5px;
 }
 
-
+.sm-text-8 {
+    width: 122px;
+    /* font-family: Poppins; */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    line-height: 10px;
+    color: #9E9E9E;
+}
 </style>
+
 <script>
 import Alert from './Alert';
 
@@ -311,7 +149,7 @@ export default {
     props: {
         uploadingFiles: [],
         nextUpFiles: [],
-        inCompletedFiles: [],
+        incompleteFiles: [],
         completedFiles: [],
         temporaryFiles: [],
         loadingProgress: Number,
