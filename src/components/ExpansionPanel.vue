@@ -1,6 +1,22 @@
 <template>
     <div class="expansion-panel">
         <v-expansion-panels multiple>
+            <!-- <v-expansion-panel>
+                <v-expansion-panel-header>
+                    <div class="cancel-upload">
+                        <div>
+                            Temp
+                        </div>
+                        
+                        
+                    </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <template v-for="(file, i) in temporaryFiles">
+                        <Alert :file="file" :key="i" :index="i" :loadingProgress="loadingProgress" :dismissible="true" :loadingState="'incomplete'" v-on:closeAlert="closeAlert"/>
+                    </template>
+                </v-expansion-panel-content>
+            </v-expansion-panel> -->
             <v-expansion-panel>
                 <v-expansion-panel-header>
                     <div class="cancel-upload">
@@ -21,6 +37,7 @@
                         color="#F6F7FC"
                         height="79"
                         :icon="file.type"
+                        
                     >
                         <div class="alert-box">
                             <div>
@@ -70,7 +87,7 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
-                        
+                        v-model="visibility"
                         @input="closeAlert('next_up', i)"                       
                     >
                         <div class="alert-box">
@@ -126,6 +143,7 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
+                        v-model="visibility"
                         @input="closeAlert('completed', i)"
                     >
                         <div class="alert-box">
@@ -133,6 +151,7 @@
                                 <div class="file-name">{{file.name}}</div>
                                 <div class="file-size">{{file.size}}</div>
                             </div>
+                            
                             <div class="loading-state">
                                 <div class="loading-mark">
                                     <v-icon
@@ -177,6 +196,7 @@
                         height="79"
                         :icon="file.type"
                         close-icon="mdi-close"
+                        v-model="visibility"
                         @input="closeAlert('incomplete', i)"
                     >
                         <div class="alert-box">
@@ -279,13 +299,13 @@
 
 </style>
 <script>
-// import Alert from './Alert';
+import Alert from './Alert';
 
 export default {
     name: "ExpansionPanel",
 
     components: {
-        // Alert,
+        Alert,
     },
 
     props: {
@@ -293,16 +313,19 @@ export default {
         nextUpFiles: [],
         inCompletedFiles: [],
         completedFiles: [],
+        temporaryFiles: [],
         loadingProgress: Number,
     },
 
-    data: () => ({
-        alert: true,
-    }),
+    data () {
+      return {
+        visibility: true,
+      }
+    },
     
     methods: {
         cancelUpload (event) {
-          
+            console.log(this.visibility);
             console.log(event);
             this.$emit('cancelUploading', "upload canceled");
         },
@@ -324,9 +347,9 @@ export default {
             this.$emit('retryIncomplete', "retry incomplete files");
         },
 
-        closeAlert(status, i) {
-            
-            this.$emit('dismissAlert', {status: status, index: i});
+        closeAlert(val) {
+          
+            this.$emit('dismissAlert', val);
         }
     },
     

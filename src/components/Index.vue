@@ -14,6 +14,7 @@
                 :completedFiles="completedFiles" 
                 :inCompletedFiles="inCompletedFiles" 
                 :loadingProgress="loadingProgress"
+                :temporaryFiles="temporaryFiles"
             />
         </v-main>
     </v-app>
@@ -160,28 +161,32 @@ export default {
            
         },
         onDismissAlertClick (val) {
-            console.log(val);
+            console.log(val.index);
+            alert("click");
+            // if (val.status == "next_up")
+            // {
+            //     console.log(this.nextUpFiles.length);
+            //     this.nextUpFiles.splice(val.index, 1);
+            //     console.log(this.nextUpFiles.length);
+                               
+            // }
 
-            if (val.status == "next_up")
-            {
-                this.nextUpFiles.splice(val.index, 1);
-                this.nextUpFiles = this.nextUpFiles.slice();
-                
-            }
+            // if (val.status == "completed")
+            // {
+            //     console.log(this.completedFiles.length);
+            //     this.completedFiles.splice(val.index, 1);
+            //     console.log(this.completedFiles.length);
+               
+            // }
 
-            if (val.status == "completed")
-            {
-                this.completedFiles.splice(val.index, 1);
-                
-                this.completedFiles = this.completedFiles.slice();
-            }
-
-            if (val.status == "incomplete")
-            {
-                this.inCompletedFiles.splice(val.index, 1);
-                this.inCompletedFiles =  this.inCompletedFiles.slice();
-            }
-        }
+            // if (val.status == "incomplete")
+            // {
+            //     console.log(this.inCompletedFiles.length);
+            //     this.inCompletedFiles.splice(val.index, 1);
+            //     console.log(this.inCompletedFiles.length);
+               
+            // }
+        },
 
 
     }
