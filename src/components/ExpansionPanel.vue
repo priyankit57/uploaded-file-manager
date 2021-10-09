@@ -121,6 +121,7 @@
 .cancel-upload {
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
 }
 
 .incomplete-reset {
