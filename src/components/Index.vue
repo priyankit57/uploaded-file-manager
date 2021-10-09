@@ -39,8 +39,6 @@ export default {
         ExpansionPanel,
     },
 
-    
-
     data: () => ({
         uploadingFiles: [],
         nextUpFiles: [],
@@ -137,7 +135,7 @@ export default {
         },
 
         onCancelAllClick () {
-            
+
             this.incompleteFiles = this.incompleteFiles.concat(this.nextUpFiles);
             this.nextUpFiles = [];
         },

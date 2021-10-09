@@ -131,7 +131,6 @@ export default {
     height: 21px; */
 }
 
-
 </style>
 
 <script>
